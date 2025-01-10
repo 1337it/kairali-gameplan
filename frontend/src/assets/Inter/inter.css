@@ -192,7 +192,9 @@ header
     display: none;
   }
 
-
+.mt-1\.5.flex.items-center.text-base {
+display: none;
+}
 
 .text-gray-600 {
 --tw-text-opacity: 1;
