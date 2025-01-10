@@ -17,8 +17,8 @@ class GPUserProfile(Document):
 		self.name = self.generate_name()
 
 	def generate_name(self):
-		full_name = frappe.db.get_value("User", self.user, "student_email_id")
-		return append_number_if_name_exists(self.doctype, cleanup_page_name(email))
+		full_name = frappe.db.get_value("User", self.user, "email")
+		return append_number_if_name_exists(self.doctype, cleanup_page_name(full_name))
 
 	@frappe.whitelist()
 	def set_image(self, image):
@@ -73,7 +73,7 @@ def delete_user_profile(doc, method=None):
 
 def on_user_update(doc, method=None):
 	create_user_profile(doc)
-	if any(doc.has_value_changed(field) for field in ["full_name", "enabled"]):
+	if any(doc.has_value_changed(field) for field in ["email", "enabled"]):
 		profile = frappe.get_doc("GP User Profile", {"user": doc.name})
 		profile.enabled = doc.enabled
 		profile.full_name = doc.full_name
