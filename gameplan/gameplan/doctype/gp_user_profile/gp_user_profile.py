@@ -17,8 +17,8 @@ class GPUserProfile(Document):
 		self.name = self.generate_name()
 
 	def generate_name(self):
-		full_name = frappe.db.get_value("User", self.user, email)
-		return append_number_if_name_exists(self.doctype, cleanup_page_name(full_name))
+		full_name = frappe.db.get_value("User", self.user, "email")
+		return full_name
 
 	@frappe.whitelist()
 	def set_image(self, image):
